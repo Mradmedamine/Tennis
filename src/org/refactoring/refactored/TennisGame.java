@@ -11,12 +11,12 @@ public class TennisGame {
 	private static final String ADVANTAGE_SCORE_TEXT = "Advantage ";
 	private static final String[] LOW_SCORE_LABELS = { "Love", "Fifteen", "Thirty", "Forty" };
 
-	private PlayerGame playerGame1;
-	private PlayerGame playerGame2;
+	private PlayerGameDetails player1;
+	private PlayerGameDetails player2;
 
 	public TennisGame(Player player1, Player player2) {
-		this.playerGame1 = new PlayerGame(player1);
-		this.playerGame2 = new PlayerGame(player2);
+		this.player1 = new PlayerGameDetails(player1);
+		this.player2 = new PlayerGameDetails(player2);
 	}
 
 	public TennisGame(String player_1Name, String player_2Name) {
@@ -24,10 +24,10 @@ public class TennisGame {
 	}
 
 	public void wonPoint(Player player) {
-		if (player.equals(playerGame1.getPlayer())) {
-			playerGame1.wonPoint();
+		if (player.equals(player1.getPlayer())) {
+			player1.wonPoint();
 		} else {
-			playerGame2.wonPoint();
+			player2.wonPoint();
 		}
 	}
 
@@ -36,8 +36,8 @@ public class TennisGame {
 	}
 
 	public String getScore() {
-		int player1Score = playerGame1.getScore();
-		int player2Score = playerGame2.getScore();
+		int player1Score = player1.getScore();
+		int player2Score = player2.getScore();
 		if (player1Score < WINNING_POINT && player2Score < WINNING_POINT) {
 			return printLowScore(player1Score, player2Score);
 		} else {
@@ -53,21 +53,17 @@ public class TennisGame {
 	}
 
 	private String printHighScore(int player1Score, int player2Score) {
-		String highScore;
 		if (player1Score == player2Score) {
-			highScore = DEUCE;
+			return DEUCE;
 		} else {
 			String winningPlayerName = winningPlayerName(player1Score, player2Score);
-			if (onePointDifference(player1Score, player2Score)) {
-				highScore = ADVANTAGE_SCORE_TEXT + winningPlayerName;
-			}
-			highScore = WIN_SCORE_TEXT + winningPlayerName;
+			String scoreText = onePointDifference(player1Score, player2Score) ? ADVANTAGE_SCORE_TEXT : WIN_SCORE_TEXT;
+			return scoreText + winningPlayerName;
 		}
-		return highScore;
 	}
 
 	private String winningPlayerName(int player1Score, int player2Score) {
-		return player1Score > player2Score ? playerGame1.getPlayer().getName() : playerGame2.getPlayer().getName();
+		return player1Score > player2Score ? player1.getPlayer().getName() : player2.getPlayer().getName();
 	}
 
 	private boolean onePointDifference(int player1Score, int player2Score) {

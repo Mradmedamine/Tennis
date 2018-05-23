@@ -1,11 +1,11 @@
 package org.refactoring.refactored;
 
-class PlayerGame {
+class PlayerGameDetails {
 
 	private Player player;
 	private int score;
 
-	public PlayerGame(Player player) {
+	public PlayerGameDetails(Player player) {
 		super();
 		this.player = player;
 	}
