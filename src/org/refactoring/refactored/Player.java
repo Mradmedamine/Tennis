@@ -4,9 +4,6 @@ public class Player {
 
 	private String name;
 
-	public Player() {
-	}
-
 	public Player(String name) {
 		super();
 		this.name = name;
